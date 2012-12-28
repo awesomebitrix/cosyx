@@ -56,7 +56,7 @@ class CSX_Server_RouteTableSectionParser
 
 	protected function prepare($s)
 	{
-		$s = str_replace('%CSX_CMS_URL%', CSX_CMS_URL, $s);
+		$s = str_replace('%CSX_COSYX_URL%', CSX_COSYX_URL, $s);
 		$s = str_replace('%CSX_APP_URL%', CSX_APP_URL, $s);
 		return $s;
 	}

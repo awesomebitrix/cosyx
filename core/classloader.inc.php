@@ -77,7 +77,7 @@ class CSX_ClassLoader
 		$ns_class_name = strtolower($className);
 		$ns_class_name = str_replace('_', '::', $className);
 		if (array_key_exists($ns_class_name, self::getInstance()->inlineCache)) {
-			//if (CSX_DEBUG_CODE) CSX_Debug::log('[' . __METHOD__ . '] [' . $ns_class_name . '] folder [' . self::getInstance()->inlineCache[$ns_class_name] . '] from cache');
+			if (CSX_DEBUG) CSX_Debug::log('[' . __METHOD__ . '] [' . $ns_class_name . '] folder [' . self::getInstance()->inlineCache[$ns_class_name] . '] from cache');
 			return self::getInstance()->inlineCache[$ns_class_name];
 		}
 		else {

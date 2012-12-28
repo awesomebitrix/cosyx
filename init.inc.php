@@ -7,6 +7,7 @@
  * @version $Id$
  */
 define('CSX_REVISION', '0');
+define('CSX_DEBUG', false);
 
 if (!defined('CSX_STARTUP_TIME')) define('CSX_STARTUP_TIME', microtime(true));
 if (!defined('CSX_ROOT_DIR')) define('CSX_ROOT_DIR', realpath(dirname(__FILE__) . '/..'));
