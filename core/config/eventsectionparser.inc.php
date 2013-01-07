@@ -2,7 +2,7 @@
 /**
  * Cosix Bitrix Extender
  *
- * @package core
+ * @package config
  * @version $Id$
  * @author Peredelskiy Aleksey <info@web-n-roll.ru>
  */

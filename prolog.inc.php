@@ -1,4 +1,12 @@
 <?php
+/**
+ * Cosyx Bitrix Extender Project
+ *
+ * @package cosyx
+ * @version $Id$
+ * @author Peredelskiy Aleksey <info@web-n-roll.ru>
+ */
+
 $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
 
 define('NO_KEEP_STATISTIC', true);

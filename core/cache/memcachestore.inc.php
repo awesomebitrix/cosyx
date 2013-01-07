@@ -1,11 +1,12 @@
 <?php
 /**
- * PrimalSite CMS Project
+ * Cosyx Bitrix Extender Project
  *
  * @package cache
  * @version $Id$
- * @author Peredelskiy Aleksey <casbah@yandex.ru>
+ * @author Peredelskiy Aleksey <info@web-n-roll.ru>
  */
+
 /** 
  * Cache store based on memcache library
  *

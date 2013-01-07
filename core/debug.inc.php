@@ -1,4 +1,17 @@
 <?php
+/**
+ * Cosyx Bitrix Extender Project
+ *
+ * @package core
+ * @version $Id$
+ * @author Peredelskiy Aleksey <info@web-n-roll.ru>
+ */
+
+/**
+ *
+ * @package core
+ */
+
 class CSX_Debug {
 	public static function log($message) {
 		AddMessage2Log($message);
