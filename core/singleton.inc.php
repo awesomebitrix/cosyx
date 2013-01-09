@@ -14,7 +14,7 @@ abstract class CSX_Singleton extends CSX_Observable
 {
 	protected static $instance = array();
 
-	protected abstract function __construct($args);
+	protected abstract function __construct($args = array());
 
 	protected static function _getInstance($className)
 	{

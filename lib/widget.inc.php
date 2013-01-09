@@ -12,17 +12,20 @@
  */
 class CSX_Widget {
 	protected $id = null;
+	protected $parent = null;
+	public $children = array();
 	public $params = null;
 
 	protected $application = null;
 
-	public function __construct($id, $params = array()) {
+	public function __construct($id, $parent, $params = array()) {
 		global $APPLICATION;
+		$this->parent = $parent;
 		$this->params = new CSX_Hash($params);
-		$this->application = $APPLICATION;
+		$this->application = new CSX_BXApplication($APPLICATION);
 	}
 
-	public static function includeWidget($cls, $params = array()) {
+	public static function createWidget($cls, $parent, $params = array(), $id = null) {
 		$class = CSX_Compat::resolveClassName($cls).'_Widget';
 
 		if ($id==null) {
@@ -31,15 +34,29 @@ class CSX_Widget {
 
 		$cls = new ReflectionClass($class);
 		
-		$obj = $cls->newInstance($id, $wparams);
+		$obj = $cls->newInstance($id, $parent, $params);
+
+		if ($parent) {
+			$parent->children[$id] = $obj;
+		}
+
+		return $obj;
+	}
+
+	public static function includeWidget($cls, $parent = null, $params = array()) {
+		$obj = self::createWidget($cls, $parent, $params);
 
 		$obj->init();
 		$obj->display();
-		
+		$obj->destruct();
+
 		return $obj;
 	}
 
 	protected function init() {
+		foreach ($this->children as $id => $child) {
+			$child->init();
+		}
 	}
 
 	protected function prepare() {
@@ -47,10 +64,22 @@ class CSX_Widget {
 	}
 
 	protected function display() {
+		foreach ($this->children as $id => $child) {
+			$child->display();
+		}
+
 		$GLOBALS['DATA'] = $this->prepare();
+		$GLOBALS['PARAMS'] = $this->params->getHashRef();
+
 		$template = $this->getDir('templates') . '/index.php';
 		if (file_exists($template)) {
 			include($template);
+		}
+	}
+
+	protected function destruct() {
+		foreach ($this->children as $id => $child) {
+			$child->destruct();
 		}
 	}
 
