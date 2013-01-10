@@ -2,7 +2,7 @@
 /**
  * Cosix Bitrix Extender
  *
- * @package core
+ * @package cache
  * @version $Id$
  * @author Peredelskiy Aleksey <info@web-n-roll.ru>
  */
@@ -11,7 +11,7 @@
  * Singletone cache store register
  * Provides access to a set of cache store objects
  *
- * @package core
+ * @package cache
  */
 class CSX_Cache
 {

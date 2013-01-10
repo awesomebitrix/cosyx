@@ -2,13 +2,13 @@
 /**
  * Cosix Bitrix Extender
  *
- * @package core
+ * @package ui
  * @version $Id$
  * @author Peredelskiy Aleksey <info@web-n-roll.ru>
  */
 
 /**
- * @package core
+ * @package ui
  */
 class CSX_Widget {
 	protected $id = null;

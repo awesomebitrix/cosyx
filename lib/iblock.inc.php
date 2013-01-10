@@ -1,4 +1,16 @@
 <?php
+/**
+ * Cosix Bitrix Extender
+ *
+ * @package lib
+ * @version $Id$
+ * @author Peredelskiy Aleksey <info@web-n-roll.ru>
+ */
+
+/**
+ *
+ * @package lib
+ */
 class CSX_IBlock extends CSX_Singleton
 {
 	protected function __construct($args = array())
