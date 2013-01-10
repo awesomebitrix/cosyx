@@ -192,9 +192,15 @@ class CSX_Server_HttpResponse extends CSX_Server_Response
 	 * @param domain
 	 * @param secure
 	 */
-	function setCookie($name, $value = null, $expires = null, $path = null, $domain = null, $secure = null)
+	public function setCookie($name, $value = null, $expires = null, $path = null, $domain = null, $secure = null)
 	{
 		$this->cookies[$name] = func_get_args();
+	}
+
+	public function setCookieImmediate($name, $value = null, $expires = null, $path = null, $domain = null, $secure = null)
+	{
+		$args = func_get_args();
+		call_user_func_array('setcookie', $args);
 	}
 
 	/**

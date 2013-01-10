@@ -18,6 +18,9 @@ class CSX_Widget {
 
 	protected $application = null;
 
+	public $isInitialized = false;
+	public $isRendered = false;
+
 	public function __construct($id, $parent, $params = array()) {
 		global $APPLICATION;
 		$this->parent = $parent;
@@ -46,16 +49,30 @@ class CSX_Widget {
 	public static function includeWidget($cls, $parent = null, $params = array()) {
 		$obj = self::createWidget($cls, $parent, $params);
 
-		$obj->init();
-		$obj->display();
-		$obj->destruct();
+		$obj->preinit();
+
+		if (!$obj->isInitialized) {
+			$obj->init();
+			$obj->isInitialized = true;
+		}
+
+		if (!$obj->isRendered) {
+			$obj->display();
+			$obj->isRendered = true;
+		}
 
 		return $obj;
 	}
 
+	protected function preinit() {
+	}
+
 	protected function init() {
 		foreach ($this->children as $id => $child) {
-			$child->init();
+			if (!$child->isInitialized) {
+				$child->init();
+				$child->isInitialized = true;
+			}
 		}
 	}
 
@@ -65,7 +82,10 @@ class CSX_Widget {
 
 	protected function display() {
 		foreach ($this->children as $id => $child) {
-			$child->display();
+			if (!$child->isDisplayed) {
+				$child->display();
+				$child->isDisplayed = true;
+			}
 		}
 
 		$GLOBALS['DATA'] = $this->prepare();
@@ -74,12 +94,6 @@ class CSX_Widget {
 		$template = $this->getDir('templates') . '/index.php';
 		if (file_exists($template)) {
 			include($template);
-		}
-	}
-
-	protected function destruct() {
-		foreach ($this->children as $id => $child) {
-			$child->destruct();
 		}
 	}
 

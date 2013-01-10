@@ -21,7 +21,7 @@ class CSX_Cache_FileStore extends CSX_Cache_Store
     function __construct($params = array())
     {
         if (empty($params['path'])) {
-            throw new CSX_Exception('Path is not set for File store cache');
+            throw new PSP_Exception('Path is not set for File store cache');
         }
 
         $path = $params['path'];
@@ -32,7 +32,7 @@ class CSX_Cache_FileStore extends CSX_Cache_Store
 
     protected function store($key, $data, $compression = 0, $ttl = null)
     {
-        //$this->local[$key] = $data;
+        $this->local[$key] = $data;
         $filename = $this->getFileName($key);
         $h = fopen($filename, 'a+');
         if (!$h) {
@@ -51,19 +51,20 @@ class CSX_Cache_FileStore extends CSX_Cache_Store
 
     protected function fetch($key)
     {
-        /*
         if (isset($this->local[$key])) {
             return $this->local[$key];
         }
-        */
+
         $filename = $this->getFileName($key);
         if (!file_exists($filename)) {
             return false;
         }
-//        if ($this->getExpiredTime() > filemtime($filename)) {
-//            unlink($filename);
-//            return false;
-//        }
+
+        if ($this->getExpiredTime() > filemtime($filename)) {
+            unlink($filename);
+            return false;
+        }
+
         if (!($h = fopen($filename, 'r'))) {
             return false;
         }
@@ -85,6 +86,8 @@ class CSX_Cache_FileStore extends CSX_Cache_Store
             unlink($filename);
             return false;
         }
+
+	$this->local[$key] = $data;
 
         return $data;
     }

@@ -150,7 +150,7 @@ class CSX_Server_Request extends CSX_Hash
 	public function getHost()
 	{
 		if (CSX_Server::isCli()) {
-			return 'PrimalSite PHP Cli framework';
+			return 'Cosyx PHP Cli framework';
 		}
 		else {
 			if (isset($_SERVER['HTTP_HOST'])) {
