@@ -1,4 +1,16 @@
 <?php
+/**
+ * Cosyx Bitrix Extender
+ *
+ * @package core
+ * @author Peredelskiy Aleksey <info@web-n-roll.ru>
+ * @version $Id$
+ */
+
+/**
+ *
+ * @package core
+ */
 class CSX_Date {
 	public static function dateRUToArray($date)
 	{
