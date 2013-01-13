@@ -40,6 +40,6 @@ class CSX_Cache_ApcStore extends CSX_Cache_Store
 
     function flush()
     {
-        apc_clear_cache($this->getPrefix());
+        apc_clear_cache('user');
     }
 }
