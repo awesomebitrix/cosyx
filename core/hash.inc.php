@@ -43,7 +43,7 @@ class CSX_Hash implements CSX_IHashable
 			$attr =& $this->hash;
 			while (count($argv) > 1) {
 				$key = array_shift($argv);
-				if (isset($attr[$key]) && ($attr[$key] instanceof CSX_Hashable) && (count($argv) > 1)) {
+				if (isset($attr[$key]) && ($attr[$key] instanceof CSX_IHashable) && (count($argv) > 1)) {
 					call_user_func_array(array($attr[$key], 'set'), $argv);
 				}
 				else {
@@ -69,7 +69,7 @@ class CSX_Hash implements CSX_IHashable
 			if (!is_array($attr) || !isset($attr[$key])) {
 				return null;
 			}
-			if (($attr[$key] instanceof CSX_Hashable) && count($argv)) {
+			if (($attr[$key] instanceof CSX_IHashable) && count($argv)) {
 				return call_user_func_array(array($attr[$key], 'get'), $argv);
 			}
 			else {
@@ -88,7 +88,7 @@ class CSX_Hash implements CSX_IHashable
 			if (!is_array($attr) || !array_key_exists($key, $attr)) {
 				return false;
 			}
-			if (($attr[$key] instanceof CSX_Hashable) && count($argv)) {
+			if (($attr[$key] instanceof CSX_IHashable) && count($argv)) {
 				return call_user_func_array(array($attr[$key], 'has'), $argv);
 			}
 			else {
@@ -112,7 +112,7 @@ class CSX_Hash implements CSX_IHashable
 				if (!is_array($attr) || !array_key_exists($key, $attr)) {
 					return;
 				}
-				elseif ($attr[$key] instanceof CSX_Hashable) {
+				elseif ($attr[$key] instanceof CSX_IHashable) {
 					return call_user_func_array(array($attr[$key], 'remove'), $argv);
 				}
 				else {
