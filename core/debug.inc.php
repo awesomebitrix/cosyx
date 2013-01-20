@@ -17,6 +17,15 @@ class CSX_Debug {
 		AddMessage2Log($message);
 	}
 
+	function pr($item, $show_for_anyone = false)
+	{
+		global $USER;
+
+		if ($USER->IsAdmin() || $show_for_anyone) {
+			echo '<pre>' . print_r($item, true) . '</pre>';
+		}
+	}
+
 	/**
 	 * PHP error handler
 	 *
