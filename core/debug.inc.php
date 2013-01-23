@@ -23,6 +23,7 @@ class CSX_Debug {
 
 		if ($USER->IsAdmin() || $show_for_anyone) {
 			echo '<pre>' . print_r($item, true) . '</pre>';
+			AddMessage2Log(print_r($item, true));
 		}
 	}
 
