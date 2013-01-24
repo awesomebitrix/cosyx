@@ -33,6 +33,7 @@ class CSX_Ajax {
 					$arNewParams[substr($key, 1)] = $value;
 				}
 			}
+			$arNewParams['CSX_AJAX_CALL'] = true;
 
 			$APPLICATION->IncludeComponent(
 				$component->GetName(),
