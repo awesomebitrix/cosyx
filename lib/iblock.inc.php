@@ -36,7 +36,7 @@ class CSX_IBlock extends CSX_Singleton
 
 	public function getByIdElement($id)
 	{
-		$rs = CIBlockElement::GetList(array(), array('ID' => $id), false, false, array('PROPERTY_*'));
+		$rs = CIBlockElement::GetByID($id);
 		if ($ar = $rs->GetNextElement()) {
 			return $ar;
 		}
@@ -61,7 +61,7 @@ class CSX_IBlock extends CSX_Singleton
 	public function getByIdElementCached($id, $expire = 600)
 	{
 		$cache = CSX_Cache::getStore();
-		$key = 'iblock_element_' . $id;
+		$key = 'iblock_eelement_' . $id;
 
 		if (!is_array($ar = $cache->get($key))) {
 			$ar = $this->getByIdElement($id);
