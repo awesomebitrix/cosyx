@@ -62,6 +62,21 @@ class CSX_IBlock extends CSX_Singleton
 		return $rows;
 	}
 
+	public function getListElement($arOrder = array("SORT" => "ASC"),
+							$arFilter = array(),
+							$arGroupBy = false,
+							$arNavStartParams = false,
+							$arSelectFields = array())
+	{
+		$rs = CIBlockElement::GetList($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
+		$rows = array();
+		while ($ar = $rs->GetNextElement()) {
+			$rows[] = $ar;
+		}
+
+		return $rows;
+	}
+
 	public function getListCached($arOrder = array("SORT" => "ASC"),
 								  $arFilter = array(),
 								  $arGroupBy = false,
@@ -74,6 +89,39 @@ class CSX_IBlock extends CSX_Singleton
 
 		if (!is_array($rows = $cache->get($key))) {
 			$rows = $this->getList($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
+			$cache->set($key, $rows, 0, $expire);
+		}
+
+		return $rows;
+	}
+
+	public function getListHash($arOrder = array("SORT" => "ASC"),
+							$arFilter = array(),
+							$arGroupBy = false,
+							$arNavStartParams = false,
+							$arSelectFields = array())
+	{
+		$rs = CIBlockElement::GetList($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
+		$rows = array();
+		while ($ar = $rs->GetNext()) {
+			$rows[$ar['ID']] = $ar;
+		}
+
+		return $rows;
+	}
+
+	public function getListHashCached($arOrder = array("SORT" => "ASC"),
+								  $arFilter = array(),
+								  $arGroupBy = false,
+								  $arNavStartParams = false,
+								  $arSelectFields = array(),
+								  $expire = 600)
+	{
+		$cache = CSX_Cache::getStore();
+		$key = 'iblock_list_' . $this->getKey($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
+
+		if (!is_array($rows = $cache->get($key))) {
+			$rows = $this->getListHash($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
 			$cache->set($key, $rows, 0, $expire);
 		}
 
