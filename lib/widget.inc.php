@@ -150,6 +150,6 @@ class CSX_Widget {
 	 *
 	 */
 	public function getDir($dir, $className = null) {
-		return PSP_SERVER_ROOT_DIR . $this->getDirUrl($dir, $className);
+		return CSX_SERVER_ROOT_DIR . $this->getDirUrl($dir, $className);
 	}
 }

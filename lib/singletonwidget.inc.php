@@ -27,8 +27,8 @@ class CSX_SingletonWidget extends CSX_Widget
 			$this->isInitialized = true;
 		}
 
-		if (!$this->isDisplayed && $this->isInited()) {
-			$this->isDisplayed = true;
+		if (!$this->isRendered && $this->isInited()) {
+			$this->isRendered = true;
 		}
 	}
 

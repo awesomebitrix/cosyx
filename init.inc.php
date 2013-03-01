@@ -52,6 +52,7 @@ if (!defined('CSX_TEMP_URL')) define('CSX_TEMP_URL', CSX_VAR_URL . '/tmp');
 if (!defined('CSX_BUILD_CLASSES')) define('CSX_BUILD_CLASSES', false);
 if (!defined('CSX_EXT_DIR')) define('CSX_EXT_DIR', CSX_ROOT_DIR . '/cosyx.ext');
 if (!defined('CSX_EXT_URL')) define('CSX_EXT_URL', CSX_ROOT_URL . '/cosyx.ext');
+if (!defined('CSX_PHPTHUMB_CACHE_DIR')) define('CSX_PHPTHUMB_CACHE_DIR', CSX_ROOT_DIR . '/bitrix/cache/phpthumb');
 if (!defined('E_DEPRECATED')) define('E_DEPRECATED', -111);
 
 require_once(dirname(__FILE__) . '/core/classloader.inc.php');
