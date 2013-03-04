@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
 	<section name="routetable" parser="CSX::Server::RouteTableSectionParser">
+		<route name="thumb-rule" pattern="^\/thumb\/([^\/\?;]+)\/(.*)$" controller="CSX::Controller::PhpThumb">
+			<names>
+				<item>rule</item>
+				<item>src</item>
+			</names>
+		</route>
+
+		<route name="thumb-raw" pattern="^\/thumb\/(.+)$" redirect="%CSX_COSYX_URL%/thumb/phpThumb.php/$1" 
+			controller="CSX::Controller::Redirect"/>
 	</section>
 
 	<route name="thumb-rule" pattern="^\/thumb\/([^\/\?;]+)\/(.*)$" controller="CSX::Controller::PhpThumb">

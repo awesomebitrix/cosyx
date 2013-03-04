@@ -91,9 +91,12 @@ class CSX_Widget {
 		$GLOBALS['DATA'] = $this->prepare();
 		$GLOBALS['PARAMS'] = $this->params->getHashRef();
 
-		$template = $this->getDir('templates') . '/index.php';
-		if (file_exists($template)) {
-			include($template);
+		$dir = $this->getDir('templates');
+		if ($dir) {
+			$template = $dir . '/index.php';
+			if (file_exists($template)) {
+				include($template);
+			}
 		}
 	}
 
@@ -150,6 +153,12 @@ class CSX_Widget {
 	 *
 	 */
 	public function getDir($dir, $className = null) {
-		return PSP_SERVER_ROOT_DIR . $this->getDirUrl($dir, $className);
+		$dir = $this->getDirUrl($dir, $className);
+		if ($dir) {
+			return CSX_SERVER_ROOT_DIR . $dir;
+		}
+		else {
+			return null;
+		}
 	}
 }

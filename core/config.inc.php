@@ -73,7 +73,7 @@ class CSX_Config
 		$config_key = 'config_' . md5(CSX_CONFIG);
 
 		if (!is_array($config_hash = $cache->get($config_key, filemtime(CSX_CONFIG)))) {
-			$config_hash = CSX_Config::parseConfig(CSX_CMS_CONFIG);
+			$config_hash = CSX_Config::parseConfig(CSX_COSYX_CONFIG);
 			$config_hash = array_merge_recursive($config_hash, CSX_Config::parseConfig(CSX_CONFIG));
 
 			CSX_Config::set($config_hash);

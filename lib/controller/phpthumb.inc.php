@@ -99,4 +99,3 @@ class CSX_Controller_PhpThumb extends CSX_Controller_Param {
 		return true;
 	}
 }
-?>
