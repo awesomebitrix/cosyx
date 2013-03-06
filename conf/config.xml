@@ -21,4 +21,10 @@
 
 	<route name="thumb-raw" pattern="^\/thumb\/(.+)$" redirect="%CSX_COSYX_URL%/thumb/phpThumb.php/$1" 
 		controller="CSX::Controller::Redirect"/>
+
+	<section name="thumb" parser="CSX::Config::ThumbSectionParser">
+		<rule name="tn120" w="120" />
+	</section>
+
+
 </configuration>
