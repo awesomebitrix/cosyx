@@ -1,9 +1,9 @@
 <?php
 // Регистрируем обработчик события главного модуля OnUserTypeBuildList
 // Событие создается при построении списка типов пользовательских свойств
-AddEventHandler('main', 'OnUserTypeBuildList', array('CUserTypeIBlockElement', 'GetUserTypeDescription'), 5000);
+AddEventHandler('main', 'OnUserTypeBuildList', array('CUserTypeHtmlElement', 'GetUserTypeDescription'), 5000);
 
-class CUserTypeIBlockElement {
+class CUserTypeHtmlElement {
    // ---------------------------------------------------------------------
    // Общие параметры методов класса:
    // @param array $arUserField - метаданные (настройки) свойства
@@ -16,7 +16,7 @@ class CUserTypeIBlockElement {
          // уникальный идентификатор
          'USER_TYPE_ID' => 'uf_html_element',
          // имя класса, методы которого формируют поведение типа
-         'CLASS_NAME' => 'CUserTypeIBlockElement',
+         'CLASS_NAME' => 'CUserTypeHtmlElement',
          // название для показа в списке типов пользовательских свойств
          'DESCRIPTION' => 'HTML',
          // базовый тип на котором будут основаны операции фильтра
@@ -68,21 +68,21 @@ class CUserTypeIBlockElement {
    // @return string - HTML для вывода
    function GetEditFormHTML($arUserField, $arHtmlControl) {
       // html поля веб-формы для текущего значения
-      $sReturn .= '<div>'.CUserTypeIBlockElement::_getItemFieldHTML($arHtmlControl['VALUE'], $iIBlockId, $arElements, $arHtmlControl['NAME']).'</div>';
+      $sReturn .= '<div>'.CUserTypeHtmlElement::_getItemFieldHTML($arHtmlControl['VALUE'], $iIBlockId, $arElements, $arHtmlControl['NAME']).'</div>';
       return $sReturn;
    }
 
    // Функция вызывается при выводе формы редактирования значения множественного свойства
    // @return string - HTML для вывода
    function GetEditFormHTMLMulty($arUserField, $arHtmlControl) {
-      $sReturn .= '<div>'.CUserTypeIBlockElement::_getItemFieldHTML($arHtmlControl['VALUE'], $iIBlockId, $arElements, $arHtmlControl['NAME']).'</div>';
+      $sReturn .= '<div>'.CUserTypeHtmlElement::_getItemFieldHTML($arHtmlControl['VALUE'], $iIBlockId, $arElements, $arHtmlControl['NAME']).'</div>';
       return $sReturn;
    }
 
    // Функция вызывается при выводе фильтра на странице списка
    // @return string - HTML для вывода
    function GetFilterHTML($arUserField, $arHtmlControl) {
-      return CUserTypeIBlockElement::GetEditFormHTML($arUserField, $arHtmlControl);
+      return CUserTypeHtmlElement::GetEditFormHTML($arUserField, $arHtmlControl);
    }
 
    // Функция вызывается при выводе значения свойства в списке элементов
@@ -100,13 +100,13 @@ class CUserTypeIBlockElement {
    // Функция вызывается при выводе значения свойства в списке элементов в режиме редактирования
    // @return string - HTML для вывода
    function GetAdminListEditHTML($arUserField, $arHtmlControl) {
-      return CUserTypeIBlockElement::GetEditFormHTML($arUserField, $arHtmlControl);
+      return CUserTypeHtmlElement::GetEditFormHTML($arUserField, $arHtmlControl);
    }
 
    // Функция вызывается при выводе множественного значения свойства в списке элементов в режиме редактирования
    // @return string - HTML для вывода
    function GetAdminListEditHTMLMulty($arUserField, $arHtmlControl) {
-      return CUserTypeIBlockElement::GetEditFormHTML($arUserField, $arHtmlControl);
+      return CUserTypeHtmlElement::GetEditFormHTML($arUserField, $arHtmlControl);
    }
 
    // Функция должна вернуть представление значения поля для поиска

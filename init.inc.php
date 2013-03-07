@@ -91,8 +91,9 @@ CSX_Server::getRouteTable()->addRoute('mvc', array(
 //	handle cosyx requests
 CSX_Server::handleRequest();
 
-require_once(dirname(__FILE__) . '/ext/property_checkbox.inc.php');
+require_once(dirname(__FILE__) . '/ext/ib_property_checkbox.inc.php');
 require_once(dirname(__FILE__) . '/ext/uf_html_element.inc.php');
+require_once(dirname(__FILE__) . '/ext/uf_iblock.inc.php');
 
 function __init_normalize($path) {
 	$path = preg_replace("/\\\\/", '/', trim($path));
