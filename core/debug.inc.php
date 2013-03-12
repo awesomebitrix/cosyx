@@ -58,7 +58,9 @@ class CSX_Debug {
 
 		$msg = "[cosyx|" . $url . "] PHP " . $errorTypes[$errno] . ": " . strip_tags($errstr) . " in " . $errfile . " on line " . $errline;
 		self::log($msg);
-		ShowError($msg);
+		if (CSX_DEBUG) {
+			ShowError($msg);
+		}
 	}
 
 	/**
