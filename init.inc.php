@@ -60,6 +60,7 @@ require_once(dirname(__FILE__) . '/core/classloader.inc.php');
 CSX_ClassLoader::registerPath(dirname(__FILE__) . '/core', 'CSX');
 CSX_ClassLoader::registerPath(dirname(__FILE__) . '/lib', 'CSX');
 CSX_ClassLoader::registerPath(CSX_APP_DIR . '/class');
+CSX_ClassLoader::registerPath(CSX_APP_DIR . '/widget');
 CSX_ClassLoader::registerPath(CSX_APP_DIR . '/controller', 'Controller');
 CSX_ClassLoader::registerPath(CSX_APP_DIR . '/model', 'Model');
 CSX_ClassLoader::registerPath(CSX_EXT_DIR);
