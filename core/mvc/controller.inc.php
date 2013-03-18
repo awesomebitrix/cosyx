@@ -13,7 +13,7 @@
 class CSX_Mvc_Controller extends CSX_Controller {
 	public function run($params) {
 		array_shift($params['matches']);
-		
+
 		$controller = array_shift($params['matches']);
 		$action = array_shift($params['matches']);
 		
