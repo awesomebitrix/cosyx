@@ -88,6 +88,10 @@ CSX_Server::getRouteTable()->addRoute('mvc', array(
 , 'controller' => "CSX::Mvc::Controller"
 ));
 
+if (CSX_Server::getRequest()->get('clear_cache')=='Y') {
+	CSX_Cache::getStore()->flush();
+}
+
 //	handle cosyx requests
 CSX_Server::handleRequest();
 
