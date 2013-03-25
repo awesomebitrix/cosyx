@@ -88,13 +88,14 @@ class CSX_Widget {
 			}
 		}
 
-		$GLOBALS['DATA'] = $this->prepare();
-		$GLOBALS['PARAMS'] = $this->params->getHashRef();
+		$GLOBALS['DATA'] = $GLOBALS['DATA'] ? array_merge($GLOBALS['DATA'], $this->prepare()) : $this->prepare();
+		$GLOBALS['PARAMS'] = $GLOBALS['PARAMS'] ? array_merge($GLOBALS['PARAMS'], $this->params->getHashRef()) : $this->params->getHashRef();
 
 		$dir = $this->getDir('templates');
 		if ($dir) {
 			$template = $dir . '/index.php';
 			if (file_exists($template)) {
+				global $DATA, $PARAMS;
 				include($template);
 			}
 		}
