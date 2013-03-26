@@ -7,7 +7,9 @@
  * @author Peredelskiy Aleksey <info@web-n-roll.ru>
  */
 
-$DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
+//$DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
+$DOCUMENT_ROOT = realpath(dirname(__FILE__) . '/..');
+$_SERVER['DOCUMENT_ROOT'] = $DOCUMENT_ROOT;
 
 define('NO_KEEP_STATISTIC', true);
 define('NOT_CHECK_PERMISSIONS', true);
