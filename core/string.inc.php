@@ -266,6 +266,73 @@ class CSX_String
 		return $str_out;
 	}
 
+	protected static $tlrTable = array(
+		"A" => "А",
+		"B" => "Б",
+		"V" => "В",
+		"G" => "Г",
+		"D" => "Д",
+		"E" => "Е",
+		"Z" => "З",
+		"I" => "И",
+		"K" => "К",
+		"L" => "Л",
+		"M" => "М",
+		"N" => "Н",
+		"O" => "О",
+		"P" => "П",
+		"R" => "Р",
+		"S" => "С",
+		"T" => "Т",
+		"U" => "У",
+		"F" => "Ф",
+		"H" => "Х",
+		"C" => "Ц",
+		"U" => "Ю",
+		"X" => "КС",
+		"Y" => "Й",
+		"a" => "а",
+		"b" => "б",
+		"v" => "в",
+		"g" => "г",
+		"d" => "д",
+		"e" => "е",
+		"z" => "з",
+		"i" => "и",
+		"k" => "к",
+		"l" => "л",
+		"m" => "м",
+		"n" => "н",
+		"o" => "о",
+		"p" => "п",
+		"r" => "р",
+		"s" => "с",
+		"t" => "т",
+		"u" => "у",
+		"f" => "ф",
+		"h" => "х",
+		"c" => "ц",
+		"u" => "ю",
+		"x" => "кс",
+		"y" => "й"
+	);
+
+	public static function tlr($str) {
+		$str_out = '';
+		for ($i = 0; $i < mb_strlen($str); $i++) {
+			$c = mb_substr($str, $i, 1);
+			if (array_key_exists($c, self::$tlrTable)) {
+				$tl = self::$tlrTable[$c];
+				$str_out .= $tl;
+			}
+			else {
+				$str_out .= $c;
+			}
+		}
+
+		return $str_out;
+	}
+
 	public static function toMysqlDateTime($s)
 	{
 		$t = strtotime($s);
