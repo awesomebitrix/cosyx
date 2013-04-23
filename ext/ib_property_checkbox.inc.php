@@ -1,9 +1,12 @@
 <?
 global $MESS;
-$MESS['IBLOCK_PROP_CHECKBOX_DESC'] = 'Флажок';
-$MESS['IBLOCK_PROP_CHECKBOX_YES']  = 'Да';
-$MESS['IBLOCK_PROP_CHECKBOX_NO']   = 'Нет';
-$MESS['IBLOCK_PROP_CHECKBOX_NA']   = '(любой)';
+
+if (!defined('LANG_CHARSET') || LANG_CHARSET!='windows-1251') {
+	include(dirname(__FILE__) . '/ib_property_checkbox/utf8.inc.php'); 
+}
+else {
+	include(dirname(__FILE__) . '/ib_property_checkbox/windows1251.inc.php'); 
+}
 
 class CIBlockPropertyCheckbox {
 
