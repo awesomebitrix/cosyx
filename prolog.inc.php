@@ -23,3 +23,9 @@ define('SITE_ID', $siteId);
 define('LANG', SITE_ID);
 
 require($DOCUMENT_ROOT . "/bitrix/modules/main/include/prolog_before.php");
+
+if (CSX_Server::isCli()) {
+	while (ob_get_level()) {
+		ob_end_flush();
+	}
+}
