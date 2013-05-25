@@ -185,6 +185,39 @@ class CSX_IBlock extends CSX_Singleton
 		return $ar;
 	}
 
+	public function getSingleElement($arOrder = array("SORT" => "ASC"),
+		$arFilter = array(),
+		$arGroupBy = false,
+		$arNavStartParams = false,
+		$arSelectFields = array())
+	{
+		$rs = CIBlockElement::GetList($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
+		if ($ar = $rs->GetNextElement()) {
+			return $ar;
+		}
+		else {
+			return null;
+		}
+	}
+
+	public function getSingleElementCached($arOrder = array("SORT" => "ASC"),
+		$arFilter = array(),
+		$arGroupBy = false,
+		$arNavStartParams = false,
+		$arSelectFields = array(),
+		$expire = 600)
+	{
+		$cache = CSX_Cache::getStore();
+		$key = 'iblock_list_esingle_' . $this->getKey($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
+
+		if (!is_array($ar = $cache->get($key))) {
+			$ar = $this->getSingleElement($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
+			$cache->set($key, $ar, 0, $expire);
+		}
+
+		return $ar;
+	}
+
 	protected function getKey()
 	{
 		$args = func_get_args();
