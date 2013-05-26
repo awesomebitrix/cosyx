@@ -162,4 +162,23 @@ class CSX_Widget {
 			return null;
 		}
 	}
+
+	/**
+	 *
+	 */
+	public function getParam($key, $default = null) {
+		if ($this->params->has($key)) {
+			return $this->params->get($key);
+		}
+		else {
+			return $default;
+		}
+	}
+
+	/**
+	 *
+	 */
+	public function setParam($key, $value) {
+		$this->params->set($key, $value);
+	}
 }
