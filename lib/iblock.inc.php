@@ -75,9 +75,15 @@ class CSX_IBlock extends CSX_Singleton
 							$arFilter = array(),
 							$arGroupBy = false,
 							$arNavStartParams = false,
-							$arSelectFields = array())
+							$arSelectFields = array(),
+							$arOptions = array()
+	)
 	{
 		$rs = CIBlockElement::GetList($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
+		if (isset($arOptions['executed'])) {
+			$arOptions['executed']($rs);
+		}
+
 		$rows = array();
 		while ($ar = $rs->GetNext()) {
 			$rows[] = $ar;
@@ -224,4 +230,38 @@ class CSX_IBlock extends CSX_Singleton
 		return md5(serialize($args));
 	}
 
+	public function setUrlTemplates(&$rs, $arSubst = array()) {
+		foreach ($rs as &$arItem) {
+			$this->setUrlTemplatesItem($arItem, $arSubst);
+		}
+	}
+
+	public function setUrlTemplatesItem(&$arItem, $arSubst = array()) {
+		foreach ($arSubst as $key => $val) {
+			$arItem['LIST_PAGE_URL'] = str_replace("#{$key}#", $val, $arItem['LIST_PAGE_URL']);
+			$arItem['DETAIL_PAGE_URL'] = str_replace("#{$key}#", $val, $arItem['DETAIL_PAGE_URL']);
+			$arItem['SECTION_PAGE_URL'] = str_replace("#{$key}#", $val, $arItem['SECTION_PAGE_URL']);
+		}
+
+		$this->setUrlTemplatesItemEx($arItem);
+	}
+
+	protected function setUrlTemplatesItemEx(&$arItem, $stack = array(), &$arSubItem = null) {
+		$prefix = !empty($stack) ? implode('_', $stack) . '_' : '';
+		if (!$arSubItem) $arSubItem = &$arItem;
+
+		foreach ($arSubItem as $key => $val) {
+			if (is_array($val)) {
+				$cstack = $stack;
+				$cstack[] = $key;
+				$this->setUrlTemplatesItem($arItem, $cstack, $val);
+			}
+			else {
+				$arItem['LIST_PAGE_URL'] = str_replace("#{$prefix}{$key}#", $val, $arItem['LIST_PAGE_URL']);
+				$arItem['DETAIL_PAGE_URL'] = str_replace("#{$prefix}{$key}#", $val, $arItem['DETAIL_PAGE_URL']);
+				$arItem['SECTION_PAGE_URL'] = str_replace("#{$prefix}{$key}#", $val, $arItem['SECTION_PAGE_URL']);
+			}
+		}
+
+	}
 }
