@@ -254,7 +254,7 @@ class CSX_IBlock extends CSX_Singleton
 			if (is_array($val)) {
 				$cstack = $stack;
 				$cstack[] = $key;
-				$this->setUrlTemplatesItem($arItem, $cstack, $val);
+				$this->setUrlTemplatesItemEx($arItem, $cstack, $val);
 			}
 			else {
 				$arItem['LIST_PAGE_URL'] = str_replace("#{$prefix}{$key}#", $val, $arItem['LIST_PAGE_URL']);
