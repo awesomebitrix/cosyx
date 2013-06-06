@@ -248,7 +248,7 @@ class CSX_IBlock extends CSX_Singleton
 
 	protected function setUrlTemplatesItemEx(&$arItem, $stack = array(), &$arSubItem = null) {
 		$prefix = !empty($stack) ? implode('_', $stack) . '_' : '';
-		if (!$arSubItem) $arSubItem = &$arItem;
+		if ($arSubItem===null) $arSubItem = &$arItem;
 
 		foreach ($arSubItem as $key => $val) {
 			if (is_array($val)) {
