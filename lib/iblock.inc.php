@@ -167,6 +167,21 @@ class CSX_IBlock extends CSX_Singleton
 		}
 	}
 
+	public function getSingleElement($arOrder = array("SORT" => "ASC"),
+							  $arFilter = array(),
+							  $arGroupBy = false,
+							  $arNavStartParams = false,
+							  $arSelectFields = array())
+	{
+		$rs = CIBlockElement::GetList($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
+		if ($ar = $rs->GetNextElement()) {
+			return $ar;
+		}
+		else {
+			return null;
+		}
+	}
+
 	public function getSingleCached($arOrder = array("SORT" => "ASC"),
 								  $arFilter = array(),
 								  $arGroupBy = false,
@@ -179,6 +194,24 @@ class CSX_IBlock extends CSX_Singleton
 
 		if (!is_array($ar = $cache->get($key))) {
 			$ar = $this->getSingle($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
+			$cache->set($key, $ar, 0, $expire);
+		}
+
+		return $ar;
+	}
+
+	public function getSingleElementCached($arOrder = array("SORT" => "ASC"),
+								  $arFilter = array(),
+								  $arGroupBy = false,
+								  $arNavStartParams = false,
+								  $arSelectFields = array(),
+								  $expire = 600)
+	{
+		$cache = CSX_Cache::getStore();
+		$key = 'iblock_list_esingle_' . $this->getKey($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
+
+		if (!is_array($ar = $cache->get($key))) {
+			$ar = $this->getSingleElement($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
 			$cache->set($key, $ar, 0, $expire);
 		}
 
