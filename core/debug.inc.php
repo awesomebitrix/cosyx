@@ -21,7 +21,7 @@ class CSX_Debug {
 	{
 		global $USER;
 
-		if ($USER && ($USER->IsAdmin() || $show_for_anyone)) {
+		if (($USER && $USER->IsAdmin()) || $show_for_anyone) {
 			echo '<pre>' . print_r($item, true) . '</pre>';
 			AddMessage2Log(print_r($item, true));
 		}
