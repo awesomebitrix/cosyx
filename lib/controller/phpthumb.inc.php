@@ -94,6 +94,7 @@ class CSX_Controller_PhpThumb extends CSX_Controller_Param {
 		restore_error_handler();
 		restore_exception_handler();
 		
+		CHTTP::SetStatus("200 OK");
 		include($_SERVER['SCRIPT_FILENAME']);
 
 		return true;
