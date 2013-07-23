@@ -55,6 +55,9 @@ if (!defined('CSX_EXT_URL')) define('CSX_EXT_URL', CSX_ROOT_URL . '/cosyx.ext');
 if (!defined('CSX_PHPTHUMB_CACHE_DIR')) define('CSX_PHPTHUMB_CACHE_DIR', CSX_ROOT_DIR . '/bitrix/cache/phpthumb');
 if (!defined('E_DEPRECATED')) define('E_DEPRECATED', -111);
 
+// useful shortcut
+define('TEMPLATE_PATH', $APPLICATION->GetTemplatePath());
+
 require_once(dirname(__FILE__) . '/core/classloader.inc.php');
 
 CSX_ClassLoader::registerPath(dirname(__FILE__) . '/core', 'CSX');
