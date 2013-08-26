@@ -45,6 +45,20 @@ class CSX_IBlock extends CSX_Singleton
 		}
 	}
 
+	public function getByIdFull($id)
+	{
+		$rs = CIBlockElement::GetByID($id);
+		if ($el = $rs->GetNextElement()) {
+			$ar = $el->GetFields();
+			$ar['PROPERTIES'] = $el->GetProperties();
+
+			return $ar;
+		}
+		else {
+			return null;
+		}
+	}
+
 	public function getByIdCached($id, $expire = 600)
 	{
 		$cache = CSX_Cache::getStore();
@@ -171,6 +185,11 @@ class CSX_IBlock extends CSX_Singleton
 		else {
 			return null;
 		}
+	}
+
+	public function getCount($arFilter = array())
+	{
+		return CIBlockElement::GetList(false, $arFilter, array(), false, false);
 	}
 
 	public function getSingleCached($arOrder = array("SORT" => "ASC"),
