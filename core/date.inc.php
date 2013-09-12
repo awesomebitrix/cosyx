@@ -99,4 +99,12 @@ class CSX_Date {
 		}
 		return $dates;
 	}
+
+	public static function toMySqlDateTime($v) {
+		if (!is_numeric($v)) {
+			$v = strtotime($v);
+		}
+
+		return FormatDate('Y-m-d H:i:s', $v);
+	}
 }
