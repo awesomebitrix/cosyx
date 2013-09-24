@@ -18,6 +18,9 @@ class CSX_IBlock extends CSX_Singleton
 		CModule::IncludeModule('iblock');
 	}
 
+	/**
+	 * @return CSX_IBlock
+	 */
 	public static function getInstance()
 	{
 		return self::_getInstance(__CLASS__);
