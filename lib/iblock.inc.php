@@ -48,12 +48,20 @@ class CSX_IBlock extends CSX_Singleton
 		}
 	}
 
-	public function getByIdFull($id)
+	public function getByIdFull($id, $options = array())
 	{
 		$rs = CIBlockElement::GetByID($id);
 		if ($el = $rs->GetNextElement()) {
 			$ar = $el->GetFields();
 			$ar['PROPERTIES'] = $el->GetProperties();
+
+			if (isset($options['resolve_links'])) {
+				foreach ($ar['PROPERTIES'] as &$arValue) {
+					if ($arValue['PROPERTY_TYPE']=='E') {
+						$arValue['VALUE'] = $this->getByIdFull($arValue['VALUE']);
+					}
+				}
+			}
 
 			return $ar;
 		}
