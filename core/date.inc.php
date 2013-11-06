@@ -99,4 +99,33 @@ class CSX_Date {
 		}
 		return $dates;
 	}
+
+	public static function toMySqlDateTime($v) {
+		if (!is_numeric($v)) {
+			$v = strtotime($v);
+		}
+
+		return FormatDate('Y-m-d H:i:s', $v);
+	}
+
+	/**
+	 * @param string $s
+	 * @param string $pad
+	 * @return string
+	 */
+	public static function encodeMonth($s, $pad = 'i') {
+		$monthEncoder = array(
+			'_' => array("january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"),
+			'i' => array("январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"),
+			'r' => array("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"),
+		);
+
+		for ($i=0;$i<count($monthEncoder[$pad]);$i++) {
+			$monthSrc = $monthEncoder['_'][$i];
+			$monthRepl = $monthEncoder[$pad][$i];
+			$s = str_replace($monthSrc, $monthRepl, $s);
+		}
+
+		return $s;
+	}
 }
