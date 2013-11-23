@@ -7,7 +7,10 @@ class CSX_PropertyBag extends CSX_Singleton implements CSX_IHashable {
 		$this->propertyBag = new CSX_Hash();
 	}
 
-	public static function getInstance()
+    /**
+     * @return CSX_PropertyBag
+     */
+    public static function getInstance()
 	{
 		return self::_getInstance(__CLASS__);
 	}
