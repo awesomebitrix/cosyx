@@ -148,8 +148,8 @@ class nusoap_base {
 	* @var      string
 	* @access   public
 	*/
-//    var $soap_defencoding = 'ISO-8859-1';
-	var $soap_defencoding = 'UTF-8';
+    var $soap_defencoding = 'ISO-8859-1';
+	//var $soap_defencoding = 'UTF-8';
 
 	/**
 	* namespaces in an array of prefix => uri
@@ -7208,7 +7208,7 @@ class nusoap_client extends nusoap_base  {
 	var $response = '';				// HTTP response
 	var $responseData = '';			// SOAP payload of response
 	var $cookies = array();			// Cookies from response or for request
-    var $decode_utf8 = false;		// toggles whether the parser decodes element content w/ utf8_decode()
+    var $decode_utf8 = true;		// toggles whether the parser decodes element content w/ utf8_decode()
 	var $operations = array();		// WSDL operations, empty for WSDL initialization error
 	var $curl_options = array();	// User-specified cURL options
 	var $bindingType = '';			// WSDL operation binding type
