@@ -128,4 +128,19 @@ class CSX_Date {
 
 		return $s;
 	}
+
+    /**
+     * Convert DateTime to Bitrix representation on queries
+     *
+     * @param $v int|DateTime
+     * @return string
+     */
+    public static function toBitrixQueryDateTime($v) {
+        if ($v instanceof DateTime) {
+            $v = $v->getTimestamp();
+        }
+
+        $v = ConvertTimeStamp($v, 'SHORT', SITE_ID);
+        return ConvertDateTime($v, "YYYY-MM-DD HH:MI:SS");
+    }
 }
