@@ -93,6 +93,15 @@ class CSX_IBlock extends CSX_Singleton
         return $ar;
     }
 
+    /**
+     * @param array $arOrder
+     * @param array $arFilter
+     * @param bool $arGroupBy
+     * @param bool $arNavStartParams
+     * @param array $arSelectFields
+     * @param array $arOptions
+     * @return array
+     */
     public function getList(
         $arOrder = array("SORT" => "ASC"),
         $arFilter = array(),
@@ -105,6 +114,15 @@ class CSX_IBlock extends CSX_Singleton
         return $obj['rows'];
     }
 
+    /**
+     * @param array $arOrder
+     * @param array $arFilter
+     * @param bool $arGroupBy
+     * @param bool $arNavStartParams
+     * @param array $arSelectFields
+     * @param array $arOptions
+     * @return array
+     */
     public function getListEx(
         $arOrder = array("SORT" => "ASC"),
         $arFilter = array(),
