@@ -348,6 +348,25 @@ class CSX_IBlock extends CSX_Singleton
                 $arItem['SECTION_PAGE_URL'] = str_replace("#{$prefix}{$key}#", $val, $arItem['SECTION_PAGE_URL']);
             }
         }
+    }
 
+    public function truncate($iblockId) {
+        $rsRows = CIBlockElement::GetList(
+            false,
+            array(
+                'IBLOCK_ID' => $iblockId,
+            ),
+            false,
+            false,
+            array(
+                'ID'
+            )
+        );
+
+        while ($arRow = $rsRows->GetNext()) {
+            CIBlockElement::Delete($arRow['ID']);
+        }
+
+        return true;
     }
 }
