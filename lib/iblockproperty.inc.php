@@ -34,7 +34,7 @@ class CSX_IBlockProperty extends CSX_Singleton
             ),
             array(
                 "IBLOCK_ID" => $iblockId,
-                "PROPERTY_CODE" => $code,
+                "CODE" => $code,
             )
         );
 
@@ -46,5 +46,10 @@ class CSX_IBlockProperty extends CSX_Singleton
         }
 
         return $arResult;
+    }
+
+    public function getById($id)
+    {
+        return CIBlockPropertyEnum::GetByID($id);
     }
 }

@@ -36,6 +36,28 @@ class CSX_IBlock extends CSX_Singleton
         }
     }
 
+    public function getByCode($iblockId, $code)
+    {
+        $ar = $this->getSingle(
+            false,
+            array(
+                'IBLOCK_ID' => $iblockId,
+                'CODE' => $code,
+            ),
+            false,
+            false,
+            array(
+                'ID', 'NAME', 'CODE'
+            )
+        );
+
+        if (!empty($ar)) {
+            return $ar;
+        } else {
+            return null;
+        }
+    }
+
     public function getByIdElement($id)
     {
         $rs = CIBlockElement::GetByID($id);
@@ -109,7 +131,8 @@ class CSX_IBlock extends CSX_Singleton
         $arNavStartParams = false,
         $arSelectFields = array(),
         $arOptions = array()
-    ) {
+    )
+    {
         $obj = $this->getListEx($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields, $arOptions);
         return $obj['rows'];
     }
@@ -130,7 +153,8 @@ class CSX_IBlock extends CSX_Singleton
         $arNavStartParams = false,
         $arSelectFields = array(),
         $arOptions = array()
-    ) {
+    )
+    {
         $rs = CIBlockElement::GetList($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
         if (isset($arOptions['executed'])) {
             $arOptions['executed']($rs);
@@ -156,7 +180,8 @@ class CSX_IBlock extends CSX_Singleton
         $arGroupBy = false,
         $arNavStartParams = false,
         $arSelectFields = array()
-    ) {
+    )
+    {
         $rs = CIBlockElement::GetList($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
         $rows = array();
         while ($ar = $rs->GetNextElement()) {
@@ -173,7 +198,8 @@ class CSX_IBlock extends CSX_Singleton
         $arNavStartParams = false,
         $arSelectFields = array(),
         $expire = 600
-    ) {
+    )
+    {
         $cache = CSX_Cache::getStore();
         $key = 'iblock_list_' . $this->getKey($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
 
@@ -191,7 +217,8 @@ class CSX_IBlock extends CSX_Singleton
         $arGroupBy = false,
         $arNavStartParams = false,
         $arSelectFields = array()
-    ) {
+    )
+    {
         $rs = CIBlockElement::GetList($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
         $rows = array();
         while ($ar = $rs->GetNext()) {
@@ -208,7 +235,8 @@ class CSX_IBlock extends CSX_Singleton
         $arNavStartParams = false,
         $arSelectFields = array(),
         $expire = 600
-    ) {
+    )
+    {
         $cache = CSX_Cache::getStore();
         $key = 'iblock_list_' . $this->getKey($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
 
@@ -226,7 +254,8 @@ class CSX_IBlock extends CSX_Singleton
         $arGroupBy = false,
         $arNavStartParams = false,
         $arSelectFields = array()
-    ) {
+    )
+    {
         $rs = CIBlockElement::GetList($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
         if ($ar = $rs->GetNext()) {
             return $ar;
@@ -247,15 +276,16 @@ class CSX_IBlock extends CSX_Singleton
         $arNavStartParams = false,
         $arSelectFields = array(),
         $expire = 600
-    ) {
+    )
+    {
         $cache = CSX_Cache::getStore();
         $key = 'iblock_list_single_' . $this->getKey(
-            $arOrder,
-            $arFilter,
-            $arGroupBy,
-            $arNavStartParams,
-            $arSelectFields
-        );
+                $arOrder,
+                $arFilter,
+                $arGroupBy,
+                $arNavStartParams,
+                $arSelectFields
+            );
 
         if (!is_array($ar = $cache->get($key))) {
             $ar = $this->getSingle($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
@@ -271,7 +301,8 @@ class CSX_IBlock extends CSX_Singleton
         $arGroupBy = false,
         $arNavStartParams = false,
         $arSelectFields = array()
-    ) {
+    )
+    {
         $rs = CIBlockElement::GetList($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
         if ($ar = $rs->GetNextElement()) {
             return $ar;
@@ -287,15 +318,16 @@ class CSX_IBlock extends CSX_Singleton
         $arNavStartParams = false,
         $arSelectFields = array(),
         $expire = 600
-    ) {
+    )
+    {
         $cache = CSX_Cache::getStore();
         $key = 'iblock_list_esingle_' . $this->getKey(
-            $arOrder,
-            $arFilter,
-            $arGroupBy,
-            $arNavStartParams,
-            $arSelectFields
-        );
+                $arOrder,
+                $arFilter,
+                $arGroupBy,
+                $arNavStartParams,
+                $arSelectFields
+            );
 
         if (!is_array($ar = $cache->get($key))) {
             $ar = $this->getSingleElement($arOrder, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
@@ -350,7 +382,8 @@ class CSX_IBlock extends CSX_Singleton
         }
     }
 
-    public function truncate($iblockId) {
+    public function truncate($iblockId)
+    {
         $rsRows = CIBlockElement::GetList(
             false,
             array(
