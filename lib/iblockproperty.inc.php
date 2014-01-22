@@ -26,7 +26,7 @@ class CSX_IBlockProperty extends CSX_Singleton
         return self::_getInstance(__CLASS__);
     }
 
-    public function getByXmlId($iblockId, $code, $xmlId)
+    public function getListValueByXmlId($iblockId, $code, $xmlId)
     {
         $rsPropertyEnum = CIBlockPropertyEnum::GetList(
             array(
@@ -48,8 +48,18 @@ class CSX_IBlockProperty extends CSX_Singleton
         return $arResult;
     }
 
-    public function getById($id)
+    public function getListValueById($id)
     {
         return CIBlockPropertyEnum::GetByID($id);
+    }
+
+    public function getById($id, $iblockId) {
+        $res = CIBlockProperty::GetByID($id, $iblockId);
+        return $res->GetNext();
+    }
+
+    public function getByCode($code, $iblockId) {
+        $res = CIBlockProperty::GetByID($code, $iblockId);
+        return $res->GetNext();
     }
 }
