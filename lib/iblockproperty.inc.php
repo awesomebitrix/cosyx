@@ -55,11 +55,47 @@ class CSX_IBlockProperty extends CSX_Singleton
 
     public function getById($id, $iblockId) {
         $res = CIBlockProperty::GetByID($id, $iblockId);
-        return $res->GetNext();
+        $ar = $res->GetNext();
+
+        $rsPropertyEnum = CIBlockPropertyEnum::GetList(
+            array(
+                "SORT" => "ASC"
+            ),
+            array(
+                "IBLOCK_ID" => $iblockId,
+                "CODE" => $code,
+            )
+        );
+
+        $arValues = array();
+        while ($arProperty = $rsPropertyEnum->GetNext()) {
+            $arValues[] = $arProperty;
+        }
+
+        $ar['VALUE_LIST'] = $arValues;
+        return $ar;
     }
 
     public function getByCode($code, $iblockId) {
         $res = CIBlockProperty::GetByID($code, $iblockId);
-        return $res->GetNext();
+        $ar = $res->GetNext();
+
+        $rsPropertyEnum = CIBlockPropertyEnum::GetList(
+            array(
+                "SORT" => "ASC"
+            ),
+            array(
+                "IBLOCK_ID" => $iblockId,
+                "CODE" => $code,
+            )
+        );
+
+        $arValues = array();
+        while ($arProperty = $rsPropertyEnum->GetNext()) {
+            $arValues[] = $arProperty;
+        }
+
+        $ar['VALUE_LIST'] = $arValues;
+        return $ar;
     }
 }
