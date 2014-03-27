@@ -11,52 +11,55 @@
  * @package mvc
  */
 class CSX_Mvc_Controller extends CSX_Controller {
-	public function run($params) {
-		array_shift($params['matches']);
+    public function run($params) {
+        array_shift($params['matches']);
 
-		$controller = array_shift($params['matches']);
-		$action = array_shift($params['matches']);
-		
-		$parameters = $params['matches'];
-		
-		$className = 'Controller_' . CSX_String::ucWords($controller);
+        $controller = array_shift($params['matches']);
+        $action = array_shift($params['matches']);
+        
+        $parameters = $params['matches'];
+        
+        $className = 'Controller_' . CSX_String::ucWords($controller);
 
-		if (class_exists($className)) {
-			$cls = new ReflectionClass($className);
-			$methodName = CSX_Compat::resolveMethodName($action);
+        if (class_exists($className)) {
+            CHTTP::SetStatus("200 OK");
+            @define("ERROR_404","N");
 
-			if (!$cls->hasMethod($methodName)) $methodName = 'index';
-			
-			if($cls->hasMethod($methodName)) {
-				CSX_Server::getSession()->start();
+            $cls = new ReflectionClass($className);
+            $methodName = CSX_Compat::resolveMethodName($action);
 
-				$obj = $cls->newInstance();
-	
-				$result = null;
-				if ($cls->hasMethod('beforeaction')) {
-					$result = call_user_func_array(
-						array($obj, 'beforeaction'), array( $action )
-					);
-				}
+            if (!$cls->hasMethod($methodName)) $methodName = 'index';
+            
+            if($cls->hasMethod($methodName)) {
+                CSX_Server::getSession()->start();
 
-				if (!$result) {
-					$result = call_user_func_array(
-						array($obj, $methodName), $parameters
-					);
-				}
+                $obj = $cls->newInstance();
+    
+                $result = null;
+                if ($cls->hasMethod('beforeaction')) {
+                    $result = call_user_func_array(
+                        array($obj, 'beforeaction'), array( $action )
+                    );
+                }
 
-				if ($result instanceOf CSX_Mvc_ActionResult) {
-					CSX_Server::getResponse()->append($result->getResult());
-				}
-				else {
-					throw new CSX_Exception("Invalid result value from controller: {$className}, action: {$action}");
-				}
-			}
-			else {
-				throw new CSX_Server_HttpNotFoundException();
-			}
+                if (!$result) {
+                    $result = call_user_func_array(
+                        array($obj, $methodName), $parameters
+                    );
+                }
 
-			return true;
-		}
-	}
+                if ($result instanceOf CSX_Mvc_ActionResult) {
+                    CSX_Server::getResponse()->append($result->getResult());
+                }
+                else {
+                    throw new CSX_Exception("Invalid result value from controller: {$className}, action: {$action}");
+                }
+            }
+            else {
+                throw new CSX_Server_HttpNotFoundException();
+            }
+
+            return true;
+        }
+    }
 }
