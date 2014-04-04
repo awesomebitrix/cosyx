@@ -78,7 +78,14 @@ class CSX_IBlock extends CSX_Singleton
             if (isset($options['resolve_links'])) {
                 foreach ($ar['PROPERTIES'] as &$arValue) {
                     if ($arValue['PROPERTY_TYPE'] == 'E') {
-                        $arValue['VALUE'] = $this->getByIdFull($arValue['VALUE']);
+                        if (is_array($arValue['VALUE'])) {
+                            foreach ($arValue['VALUE'] as &$v) {
+                                $v = $this->getByIdFull($v);
+                            }
+                        }
+                        else {
+                            $arValue['VALUE'] = $this->getByIdFull($arValue['VALUE']);
+                        }
                     }
                 }
             }
