@@ -82,8 +82,7 @@ class CSX_IBlock extends CSX_Singleton
                             foreach ($arValue['VALUE'] as &$v) {
                                 $v = $this->getByIdFull($v);
                             }
-                        }
-                        else {
+                        } else {
                             $arValue['VALUE'] = $this->getByIdFull($arValue['VALUE']);
                         }
                     }
@@ -174,7 +173,7 @@ class CSX_IBlock extends CSX_Singleton
 
         return array(
             'rows' => $rows,
-            'rowcount' => $rs->NavRecordCount,
+            'rowcount' => intval($rs->NavRecordCount),
             'pagecount' => $rs->NavPageCount,
             'page' => $rs->NavPageNomer,
             'pagesize' => $rs->NavPageSize,
@@ -408,5 +407,43 @@ class CSX_IBlock extends CSX_Singleton
         }
 
         return true;
+    }
+
+    public function minimify(&$arList, $options = array())
+    {
+        foreach ($arList as &$arItem) {
+            $this->minimifyItem($arItem, $options);
+        }
+
+        return $arList;
+    }
+
+    public function minimifyItem(&$arItem, $options = array())
+    {
+        if (is_array($options['allowed_keys'])) {
+            $options['allowed_keys'][] = 'PROPERTIES';
+            foreach ($arItem as $k => $v) {
+                if (!in_array($k, $options['allowed_keys'])) {
+                    unset($arItem[$k]);
+                }
+            }
+        }
+
+        if (isset($options['use_raw_values'])) {
+            foreach ($arItem as $k => $v) {
+                if ($k[0] == '~') {
+                    $arItem[substr($k, 1)] = $v;
+                    unset($arItem[$k]);
+                }
+            }
+        }
+
+        if (isset($arItem['PROPERTIES'])) {
+            foreach ($arItem['PROPERTIES'] as $k => $v) {
+                $arItem['PROPERTIES'][$k] = isset($options['use_raw_values']) ? $v['~VALUE'] : $v['VALUE'];
+            }
+        }
+
+        return $arItem;
     }
 }
