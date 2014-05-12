@@ -58,8 +58,10 @@ class CSX_IBlock extends CSX_Singleton
         }
     }
 
-    public function getByXmlId($iblockId, $xmlId)
+    public function getByXmlId($iblockId, $xmlId, $options = array())
     {
+        $arSelect = isset($options['SELECT']) : $options['SELECT'] : array('ID', 'NAME', 'XML_ID');
+
         $ar = $this->getSingle(
             false,
             array(
@@ -68,9 +70,7 @@ class CSX_IBlock extends CSX_Singleton
             ),
             false,
             false,
-            array(
-                'ID', 'NAME', 'XML_ID'
-            )
+            $arSelect
         );
 
         if (!empty($ar)) {
