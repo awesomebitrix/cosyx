@@ -157,6 +157,7 @@ class CSX_Date
         '_' => array("january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"),
         'i' => array("январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"),
         'r' => array("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"),
+        't' => array("январе", "феврале", "марте", "апреле", "мае", "июне", "июле", "августе", "сентябре", "октябре", "ноябре", "декабре"),
     );
 
     private static $MonthEncoderShort = array(
@@ -164,7 +165,7 @@ class CSX_Date
         "feb" => "фев",
         "mar" => "мар",
         "apr" => "апр",
-        "may" => "май",
+        "may" => "мая",
         "jun" => "июн",
         "jul" => "июл",
         "aug" => "авг",
@@ -205,6 +206,15 @@ class CSX_Date
         }
 
         return $s;
+    }
+
+    public static function getMonthName($n) {
+        return self::$MonthEncoder['i'][$n-1];
+    }
+
+    public static function isWeekend($date) {
+        $n = date('N', $date);
+        return in_array($n, array(6, 7));
     }
 
     /**
