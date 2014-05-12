@@ -252,8 +252,8 @@ class CSX_String
 	public static function tl($str)
 	{
 		$str_out = '';
-		for ($i = 0; $i < mb_strlen($str); $i++) {
-			$c = mb_substr($str, $i, 1);
+		for ($i = 0; $i < strlen($str); $i++) {
+			$c = substr($str, $i, 1);
 			if (array_key_exists($c, self::$tlTable)) {
 				$tl = self::$tlTable[$c];
 				$str_out .= $tl;
