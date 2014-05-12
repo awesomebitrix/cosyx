@@ -438,6 +438,14 @@ class CSX_IBlock extends CSX_Singleton
             }
         }
 
+        if (isset($options['strip_raw_values'])) {
+            foreach ($arItem as $k => $v) {
+                if ($k[0] == '~') {
+                    unset($arItem[$k]);
+                }
+            }
+        }
+
         if (isset($arItem['PROPERTIES'])) {
             foreach ($arItem['PROPERTIES'] as $k => $v) {
                 $arItem['PROPERTIES'][$k] = isset($options['use_raw_values']) ? $v['~VALUE'] : $v['VALUE'];
