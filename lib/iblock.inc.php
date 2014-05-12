@@ -58,6 +58,28 @@ class CSX_IBlock extends CSX_Singleton
         }
     }
 
+    public function getByXmlId($iblockId, $xmlId)
+    {
+        $ar = $this->getSingle(
+            false,
+            array(
+                'IBLOCK_ID' => $iblockId,
+                'XML_ID' => $xmlId,
+            ),
+            false,
+            false,
+            array(
+                'ID', 'NAME', 'XML_ID'
+            )
+        );
+
+        if (!empty($ar)) {
+            return $ar;
+        } else {
+            return null;
+        }
+    }
+
     public function getByIdElement($id)
     {
         $rs = CIBlockElement::GetByID($id);
