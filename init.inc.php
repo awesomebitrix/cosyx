@@ -55,6 +55,8 @@ if (!defined('E_DEPRECATED')) define('E_DEPRECATED', -111);
 
 require_once(dirname(__FILE__) . '/core/classloader.inc.php');
 
+date_default_timezone_set('Europe/Moscow');
+
 CSX_ClassLoader::registerPath(dirname(__FILE__) . '/core', 'CSX');
 CSX_ClassLoader::registerPath(dirname(__FILE__) . '/lib', 'CSX');
 CSX_ClassLoader::registerPath(CSX_APP_DIR . '/class');
@@ -74,7 +76,7 @@ CSX_Config::load();
 set_error_handler(array('CSX_Debug', 'errorHandler'), E_ALL ^ E_NOTICE ^ E_USER_NOTICE ^ E_WARNING);
 set_exception_handler(array('CSX_Debug', 'exceptionHandler'));
 
-//	request handling
+//  request handling
 $table = CSX_Config::get('routetable');
 if ($table) {
     foreach ($table as $k => $v) {
@@ -95,7 +97,7 @@ require_once(dirname(__FILE__) . '/ext/ib_property_checkbox.inc.php');
 require_once(dirname(__FILE__) . '/ext/uf_html_element.inc.php');
 require_once(dirname(__FILE__) . '/ext/uf_iblock.inc.php');
 
-//	handle cosyx requests
+//  handle cosyx requests
 CSX_Server::handleRequest();
 
 function __init_normalize($path)
