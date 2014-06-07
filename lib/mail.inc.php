@@ -1,7 +1,7 @@
 <?php
 class CSX_Mail
 {
-    public function Send($event, $lid, $arFields, $filePath)
+    public static function Send($event, $lid, $arFields, $filePath)
     {
         global $DB;
 
