@@ -117,6 +117,40 @@ class CSX_IBlock extends CSX_Singleton
         }
     }
 
+    public function getByCodeFull($iblockId, $code, $options = array())
+    {
+        $rs = CIBlockElement::GetList(
+            false,
+            array(
+                'IBLOCK_ID' => $iblockId,
+                'CODE' => $code,
+            )
+        );
+
+        if ($el = $rs->GetNextElement()) {
+            $ar = $el->GetFields();
+            $ar['PROPERTIES'] = $el->GetProperties();
+
+            if (isset($options['resolve_links'])) {
+                foreach ($ar['PROPERTIES'] as &$arValue) {
+                    if ($arValue['PROPERTY_TYPE'] == 'E') {
+                        if (is_array($arValue['VALUE'])) {
+                            foreach ($arValue['VALUE'] as &$v) {
+                                $v = $this->getByIdFull($v);
+                            }
+                        } else {
+                            $arValue['VALUE'] = $this->getByIdFull($arValue['VALUE']);
+                        }
+                    }
+                }
+            }
+
+            return $ar;
+        } else {
+            return null;
+        }
+    }
+
     public function getByIdCached($id, $expire = 600)
     {
         $cache = CSX_Cache::getStore();
