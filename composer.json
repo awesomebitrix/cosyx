@@ -1,0 +1,21 @@
+{
+    "name": "webnroll/cosyx",
+    "type": "package",
+    "description": "Cosyx Bitrix extender",
+    "keywords": ["cosyx", "bitrix"],
+    "homepage": "https://bitbucket.org/webnroll/cosyx",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aleksey Peredelskiy",
+            "email": "info@web-n-roll.ru"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "require-dev": {
+    },
+    "minimum-stability": "dev",
+    "target-dir": "webnroll/cosyx"
+}
